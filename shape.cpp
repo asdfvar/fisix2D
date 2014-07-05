@@ -47,6 +47,12 @@ void SHAPE::remove(void) {
 
 }
 
+SHAPE *SHAPE::shift_left(void) {
+
+  return this->prev;
+
+}
+
 /**/
 
 CIRCLE::CIRCLE() {

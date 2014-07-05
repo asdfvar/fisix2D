@@ -18,7 +18,12 @@ int main() {
             << ball << " "
             << ball->next << std::endl;
 
-  delete ball;
+//  ball->remove();
+  ball = (CIRCLE*) ball->shift_left();
+
+  std::cout << ball->prev << " "
+            << ball << " "
+            << ball->next << std::endl;
 
   return 0;
 }

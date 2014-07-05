@@ -3,12 +3,10 @@ class SHAPE {
   public:
 
      SHAPE();
-#if 0
-     ~SHAPE();
-#endif
      SHAPE go2Next();
      void append(SHAPE*);
      void remove(void);
+     SHAPE *shift_left(void);
      SHAPE *prev, *next;
 
   protected:
