@@ -1,5 +1,5 @@
 CPPC = g++
-OBJ = main.o shape.o
+OBJ = main.o shape.o list.o
 EXE = main
 
 all: $(OBJ)
