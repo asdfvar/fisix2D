@@ -1,10 +1,16 @@
+#ifndef LIST_H
+#define LIST_H
+#include "shape.h"
+
 class NODE {
 
   public:
 
     NODE();
+   ~NODE();
 
-    void *obj;
+    CIRCLE *circle_obj;
+
     NODE *prev, *next;
 
 };
@@ -15,11 +21,10 @@ class LIST {
 
     LIST();
    ~LIST();
-    void append(void*);
+    void append(CIRCLE*);
     NODE *pop(void);
     void gotonext(void);
     void gotoprev(void);
-    void *getobj(void);
 
   private:
 
@@ -27,3 +32,5 @@ class LIST {
     NODE *at;
 
 };
+
+#endif

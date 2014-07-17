@@ -1,3 +1,6 @@
+#ifndef SHAPE_H
+#define SHAPE_H
+
 class SHAPE {
 
   public:
@@ -23,3 +26,4 @@ class CIRCLE: public SHAPE {
      CIRCLE();
 
 };
+#endif

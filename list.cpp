@@ -1,11 +1,18 @@
-#include"list.h"
-#include<stdio.h>
-#include<iostream>
+#include "list.h"
+#include "shape.h"
+#include <stdio.h>
+#include <iostream>
 
 class NODE;
 class LIST;
 
-NODE::NODE() {}
+NODE::NODE() {
+  circle_obj = 0;
+}
+
+NODE::~NODE() {
+  delete circle_obj;
+}
 
 LIST::LIST() {
 
@@ -14,10 +21,10 @@ LIST::LIST() {
 
 }
 
-void LIST::append(void *obj) {
+void LIST::append(CIRCLE *circle_obj) {
 
   NODE *node = new NODE();
-  node->obj = obj;
+  node->circle_obj = circle_obj;
 
   if (N++ == 0) {
 
@@ -41,6 +48,13 @@ void LIST::append(void *obj) {
 
 }
 
+LIST::~LIST() {
+
+  while (N > 0)
+    delete this->pop();
+
+}
+
 void LIST::gotonext(void) {
 
   at = at->next;
@@ -50,12 +64,6 @@ void LIST::gotonext(void) {
 void LIST::gotoprev(void) {
 
   at = at->prev;
-
-}
-
-void *LIST::getobj(void) {
-
-  return at->obj;
 
 }
 
@@ -93,11 +101,4 @@ NODE *LIST::pop(void) {
   }
 
   return ptr;
-}
-
-LIST::~LIST() {
-
-  while (N > 0)
-    delete this->pop();
-
 }

@@ -19,7 +19,6 @@ int main() {
             << ball << " "
             << ball->next << std::endl;
 
-//  ball->remove();
   ball = (CIRCLE*) ball->shift_left();
 
   std::cout << ball->prev << " "
@@ -30,19 +29,19 @@ int main() {
 
   LIST list;
 
-  list.append(new CIRCLE*);
-  list.append(new CIRCLE*);
-  list.append(new CIRCLE*);
+  list.append(new CIRCLE);
+  list.append(new CIRCLE);
+  list.append(new CIRCLE);
 
   list.pop();
   list.pop();
 
-  list.append(new CIRCLE*);
-  list.append(new CIRCLE*);
-  list.append(new CIRCLE*);
-  list.append(new CIRCLE*);
-  list.append(new CIRCLE*);
-  list.append(new CIRCLE*);
+  list.append(new CIRCLE);
+  list.append(new CIRCLE);
+  list.append(new CIRCLE);
+  list.append(new CIRCLE);
+  list.append(new CIRCLE);
+  list.append(new CIRCLE);
 
   return 0;
 }
