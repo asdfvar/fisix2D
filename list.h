@@ -9,10 +9,15 @@ class NODE {
     NODE();
    ~NODE();
 
-    CIRCLE *circle_obj;
-
     NODE *prev, *next;
 
+    void setCircleObj(CIRCLE*);
+    CIRCLE *getCircle(void);
+
+  private:
+
+    CIRCLE *circle_obj;
+    bool isCircle;
 };
 
 class LIST {
@@ -21,6 +26,7 @@ class LIST {
 
     LIST();
    ~LIST();
+
     void append(CIRCLE*);
     NODE *pop(void);
     void gotonext(void);

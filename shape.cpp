@@ -2,56 +2,7 @@
 
 class SHAPE;
 
-SHAPE::SHAPE() {
-
-  prev = this;
-  next = this;
-  Number_of_obj = 1;
-
-}
-
-#if 0
-SHAPE::~SHAPE() {
-
-  while(Number_of_obj > 0) {
-  }
-
-}
-#endif
-
-void SHAPE::append(SHAPE *shape) {
-
-/*
-
-    prev <-> this <-> next
-                   ^
-                   |
-                 append
-
-*/
-
-  shape->next = this->next;
-  shape->prev = this;
-  this->next = shape;
-  shape->next->prev = shape;
-  shape->Number_of_obj = ++Number_of_obj;
-
-}
-
-void SHAPE::remove(void) {
-
-  this->prev->next = this->next;
-  this->next->prev = this->prev;
-
-  delete this;
-
-}
-
-SHAPE *SHAPE::shift_left(void) {
-
-  return this->prev;
-
-}
+SHAPE::SHAPE() {}
 
 /**/
 

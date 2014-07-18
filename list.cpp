@@ -6,25 +6,82 @@
 class NODE;
 class LIST;
 
+/*||||||||||||
+  ||  NODE  ||
+  ||||||||||||*/
+
+/********************
+ * Node constructor *
+ ********************/
+
 NODE::NODE() {
   circle_obj = 0;
+  isCircle = false;
 }
+
+/*******************
+ * Node destructor *
+ *******************/
 
 NODE::~NODE() {
   delete circle_obj;
 }
 
-LIST::LIST() {
+/*********************
+ * set circle object *
+ *********************/
 
+void NODE::setCircleObj(CIRCLE* circle) {
+  if (!isCircle)
+     circle_obj = circle;
+  else
+     std::cout << "circle already exists"
+          << std::endl;
+}
+
+/*********************
+ * get circle object *
+ *********************/
+
+CIRCLE *NODE::getCircle(void) {
+  if (isCircle)
+     return circle_obj;
+  else {
+     std::cout << "no circle exists"
+          << std::endl;
+     return 0;
+  }
+}
+
+/*||||||||||||
+  ||  LIST  ||
+  ||||||||||||*/
+
+/********************
+ * List constructor *
+ ********************/
+
+LIST::LIST() {
   N = 0;
   at = 0;
-
 }
+
+/******************
+ * append to list *
+ ******************/
+/*
+
+    prev <-> this <-> next
+                   ^
+                   |
+                 append
+
+*/
 
 void LIST::append(CIRCLE *circle_obj) {
 
   NODE *node = new NODE();
-  node->circle_obj = circle_obj;
+  node->setCircleObj(circle_obj);
 
   if (N++ == 0) {
 
@@ -71,24 +128,9 @@ NODE *LIST::pop(void) {
 
   NODE *ptr = at;
 
-  if (N <= 0) {
+  N--;
 
-    N = 0;
-    std::cout << "Nothing to pop"
-        << std::endl;
-
-    return ptr;
-
-  }
-
-  if (--N == 0) {
-
-    at = 0;
-
-    std::cout << "Last node popped at "
-        << ptr << std::endl;
-
-  } else {
+  if (N > 0) {
 
      at = ptr->prev;
      at->next = ptr->next;
@@ -97,6 +139,21 @@ NODE *LIST::pop(void) {
      std::cout << "node "
         << ptr << " popped"
         << std::endl;
+
+  } else if (N == 0) {
+
+    at = 0;
+
+    std::cout << "Last node popped at "
+        << ptr << std::endl;
+
+  } else {
+
+    N = 0;
+    std::cout << "Nothing to pop"
+        << std::endl;
+
+    return ptr;
 
   }
 
