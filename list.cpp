@@ -62,7 +62,7 @@ CIRCLE *NODE::getCircle(void) {
  ********************/
 
 LIST::LIST() {
-  N = 0;
+  N_node = 0;
   at = 0;
 }
 
@@ -83,7 +83,7 @@ void LIST::append(CIRCLE *circle_obj) {
   NODE *node = new NODE();
   node->setCircleObj(circle_obj);
 
-  if (N++ == 0) {
+  if (N_node++ == 0) {
 
      at = node;
      node->prev = node->next = at;
@@ -107,7 +107,7 @@ void LIST::append(CIRCLE *circle_obj) {
 
 LIST::~LIST() {
 
-  while (N > 0)
+  while (N_node > 0)
     delete this->pop();
 
 }
@@ -128,9 +128,9 @@ NODE *LIST::pop(void) {
 
   NODE *ptr = at;
 
-  N--;
+  N_node--;
 
-  if (N > 0) {
+  if (N_node > 0) {
 
      at = ptr->prev;
      at->next = ptr->next;
@@ -140,7 +140,7 @@ NODE *LIST::pop(void) {
         << ptr << " popped"
         << std::endl;
 
-  } else if (N == 0) {
+  } else if (N_node == 0) {
 
     at = 0;
 
@@ -149,7 +149,7 @@ NODE *LIST::pop(void) {
 
   } else {
 
-    N = 0;
+    N_node = 0;
     std::cout << "Nothing to pop"
         << std::endl;
 

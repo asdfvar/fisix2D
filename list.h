@@ -42,7 +42,7 @@ class LIST {
 
   private:
 
-    int N;
+    int N_node;
     NODE *at;
 
 };
