@@ -2,6 +2,10 @@
 #define LIST_H
 #include "shape.h"
 
+ /********
+  * NODE *
+  ********/
+
 class NODE {
 
   public:
@@ -19,6 +23,10 @@ class NODE {
     CIRCLE *circle_obj;
     bool isCircle;
 };
+
+ /********
+  * LIST *
+  ********/
 
 class LIST {
 
@@ -39,4 +47,4 @@ class LIST {
 
 };
 
-#endif
+/#endif
