@@ -55,9 +55,9 @@ CIRCLE *NODE::getCircle(void) {
 
 /*||||||||||||
   ||  LIST  ||
-  ||||||||||||*/
+  ||||||||||||
 
-/********************
+ ********************
  * List constructor *
  ********************/
 
@@ -66,24 +66,25 @@ LIST::LIST() {
   at = 0;
 }
 
-/******************
- * append to list *
- ******************/
-/*
+/********************
+ * append to insert *
+ ********************
 
     prev <-> this <-> next
                    ^
                    |
-                 append
+                 insert
 
 */
 
-void LIST::append(CIRCLE *circle_obj) {
+void LIST::insert(CIRCLE *circle_obj) {
 
   NODE *node = new NODE();
   node->setCircleObj(circle_obj);
 
-  if (N_node++ == 0) {
+  N_node++;
+
+  if (N_node == 1) {
 
      at = node;
      node->prev = node->next = at;

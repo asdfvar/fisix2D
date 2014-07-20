@@ -15,6 +15,8 @@ class NODE {
 
     NODE *prev, *next;
 
+    int i_node;
+
     void setCircleObj(CIRCLE*);
     CIRCLE *getCircle(void);
 
@@ -35,7 +37,7 @@ class LIST {
     LIST();
    ~LIST();
 
-    void append(CIRCLE*);
+    void insert(CIRCLE*);
     NODE *pop(void);
     void gotonext(void);
     void gotoprev(void);
