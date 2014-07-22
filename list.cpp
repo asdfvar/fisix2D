@@ -64,6 +64,7 @@ CIRCLE *NODE::getCircle(void) {
 LIST::LIST() {
   N_node = 0;
   at = 0;
+  N_circle = 0;
 }
 
 /********************
@@ -85,6 +86,7 @@ void LIST::insert(CIRCLE *circle_obj) {
 
   node->setCircleObj(circle_obj);
 
+  N_circle++;
 }
 
 /***************

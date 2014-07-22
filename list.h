@@ -49,6 +49,8 @@ class LIST {
 
     void insertNode(NODE*);
 
+    int N_circle;
+
 };
 
 #endif
