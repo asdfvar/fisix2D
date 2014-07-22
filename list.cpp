@@ -80,7 +80,18 @@ LIST::LIST() {
 void LIST::insert(CIRCLE *circle_obj) {
 
   NODE *node = new NODE();
+
+  insertNode(node);
+
   node->setCircleObj(circle_obj);
+
+}
+
+/***************
+ * Insert Node *
+ ***************/
+
+void LIST::insertNode(NODE *node) {
 
   N_node++;
 
@@ -103,8 +114,11 @@ void LIST::insert(CIRCLE *circle_obj) {
             << at << " with previous node at "
             << at->prev << " and next node at "
             << at->next << std::endl;
-
 }
+
+/****************
+ * Destroy list *
+ ****************/
 
 LIST::~LIST() {
 

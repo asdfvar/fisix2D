@@ -11,19 +11,19 @@ int main() {
 
   LIST list;
 
-  list.append(new CIRCLE);
-  list.append(new CIRCLE);
-  list.append(new CIRCLE);
+  list.insert(new CIRCLE);
+  list.insert(new CIRCLE);
+  list.insert(new CIRCLE);
 
   list.pop();
   list.pop();
 
-  list.append(new CIRCLE);
-  list.append(new CIRCLE);
-  list.append(new CIRCLE);
-  list.append(new CIRCLE);
-  list.append(new CIRCLE);
-  list.append(new CIRCLE);
+  list.insert(new CIRCLE);
+  list.insert(new CIRCLE);
+  list.insert(new CIRCLE);
+  list.insert(new CIRCLE);
+  list.insert(new CIRCLE);
+  list.insert(new CIRCLE);
 
   return 0;
 }

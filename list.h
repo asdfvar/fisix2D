@@ -47,6 +47,8 @@ class LIST {
     int N_node;
     NODE *at;
 
+    void insertNode(NODE*);
+
 };
 
 #endif
