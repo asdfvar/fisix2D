@@ -15,7 +15,7 @@ class NODE {
 
     NODE *prev, *next;
 
-    int i_node;
+    int node_id;
 
     void setCircleObj(CIRCLE*);
     CIRCLE *getCircle(void);
@@ -44,12 +44,14 @@ class LIST {
 
   private:
 
-    int N_node;
-    NODE *at;
-
+    /* Node */
+    NODE *at, *beginning, *end;
     void insertNode(NODE*);
+    int N_node;
 
+    // Circle
     int N_circle;
+    NODE *this_circle_node;
 
 };
 

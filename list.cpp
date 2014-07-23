@@ -15,8 +15,11 @@ class LIST;
  ********************/
 
 NODE::NODE() {
+  static int id = 0;
+
   circle_obj = 0;
   isCircle = false;
+  node_id = id++;
 }
 
 /*******************
@@ -67,16 +70,9 @@ LIST::LIST() {
   N_circle = 0;
 }
 
-/********************
- * append to insert *
- ********************
-
-    prev <-> this <-> next
-                   ^
-                   |
-                 insert
-
-*/
+/*****************
+ * insert Circle *
+ *****************/
 
 void LIST::insert(CIRCLE *circle_obj) {
 
@@ -86,12 +82,20 @@ void LIST::insert(CIRCLE *circle_obj) {
 
   node->setCircleObj(circle_obj);
 
+  this_circle_node = node;
+
   N_circle++;
 }
 
 /***************
  * Insert Node *
- ***************/
+ ***************
+
+    prev <-> this <-> next
+                   ^
+                   |
+                 insert
+*/
 
 void LIST::insertNode(NODE *node) {
 
@@ -100,13 +104,16 @@ void LIST::insertNode(NODE *node) {
   if (N_node == 1) {
 
      at = node;
-     node->prev = node->next = at;
+     node->prev = node->next = at; // make this 0 and fix the bugs to make it not cicular
+     beginning = end = at;
 
   } else {
      
+     if (at == end) end = node;
+
      node->next = at->next;
      node->prev = at;
-     at->next->prev = node;
+     if (at->next != 0) at->next->prev = node;
      at->next = node;
      at = node;
 
