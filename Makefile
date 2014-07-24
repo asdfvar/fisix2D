@@ -3,8 +3,10 @@ INC = -I./list -I.
 OBJ = main.o shape.o list.o
 EXE = main
 
-all: $(OBJ)
+PROG: $(OBJ)
 	$(CPPC) $(INC) $(OBJ) -o $(EXE)
+
+all: $(PROG)
 
 clean:
 	rm $(OBJ) $(EXE)
