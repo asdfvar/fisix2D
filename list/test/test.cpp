@@ -15,8 +15,8 @@ int main() {
   list.insert(new CIRCLE);
   list.insert(new CIRCLE);
 
-  list.pop();
-  list.pop();
+//  list.pop();
+//  list.pop();
 
   list.insert(new CIRCLE);
   list.insert(new CIRCLE);

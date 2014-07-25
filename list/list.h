@@ -23,7 +23,7 @@ class NODE {
   private:
 
     CIRCLE *circle_obj;
-    bool isCircle;
+    bool have_circle;
 };
 
  /********
@@ -38,6 +38,7 @@ class LIST {
    ~LIST();
 
     void insert(CIRCLE*);
+    CIRCLE *popCircle(void); // working on making this
     NODE *pop(void);
     void gotonext(void);
     void gotoprev(void);
@@ -45,7 +46,7 @@ class LIST {
   private:
 
     /* Node */
-    NODE *at, *beginning, *end;
+    NODE *at, *beginning, *end; // check beginning and end are used
     void insertNode(NODE*);
     int N_node;
 

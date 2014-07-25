@@ -18,7 +18,7 @@ NODE::NODE() {
   static int id = 0;
 
   circle_obj = 0;
-  isCircle = false;
+  have_circle = false;
   node_id = id++;
 }
 
@@ -35,7 +35,7 @@ NODE::~NODE() {
  *********************/
 
 void NODE::setCircleObj(CIRCLE* circle) {
-  if (!isCircle)
+  if (!have_circle)
      circle_obj = circle;
   else
      std::cout << "circle already exists"
@@ -47,7 +47,7 @@ void NODE::setCircleObj(CIRCLE* circle) {
  *********************/
 
 CIRCLE *NODE::getCircle(void) {
-  if (isCircle)
+  if (have_circle)
      return circle_obj;
   else {
      std::cout << "no circle exists"
@@ -104,7 +104,7 @@ void LIST::insertNode(NODE *node) {
   if (N_node == 1) {
 
      at = node;
-     node->prev = node->next = at; // make this 0 and fix the bugs to make it not cicular
+     node->prev = node->next = 0;
      beginning = end = at;
 
   } else {
@@ -136,17 +136,51 @@ LIST::~LIST() {
 
 }
 
+/******************
+ * goto next node *
+ ******************/
+
 void LIST::gotonext(void) {
 
   at = at->next;
 
 }
 
+/**********************
+ * goto previous node *
+ **********************/
+
 void LIST::gotoprev(void) {
 
   at = at->prev;
 
 }
+
+/**************
+ * pop circle *
+ **************/
+
+CIRCLE *LIST::popCircle(void) {
+
+  if (N_circle <= 0) {
+
+     printf("No circles left\n");
+     return 0;
+
+  } else {
+
+     N_circle--;
+     
+     CIRCLE *ptr;
+
+     
+
+   }
+}
+
+/************
+ * pop node *
+ ************/
 
 NODE *LIST::pop(void) {
 
@@ -158,7 +192,7 @@ NODE *LIST::pop(void) {
 
      at = ptr->prev;
      at->next = ptr->next;
-     ptr->next->prev = at;
+     if (ptr->next != 0) ptr->next->prev = at;
 
      std::cout << "node "
         << ptr << " popped"
@@ -176,8 +210,6 @@ NODE *LIST::pop(void) {
     N_node = 0;
     std::cout << "Nothing to pop"
         << std::endl;
-
-    return ptr;
 
   }
 
