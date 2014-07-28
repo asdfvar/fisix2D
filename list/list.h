@@ -17,8 +17,9 @@ class NODE {
 
     int node_id;
 
-    void setCircleObj(CIRCLE*);
+    void set_circle_obj(CIRCLE*);
     CIRCLE *get_circle(void);
+    void delete_circle(void);
     bool have_circle;
 
   private:
@@ -39,8 +40,10 @@ class LIST {
 
     // Circle
     void insert(CIRCLE*);
-    void goto_next_circle();
-    CIRCLE *pop_circle(void); // working on making this
+    CIRCLE *get_circle(void);
+    void goto_next_circle(void);
+    CIRCLE *pop_circle(void);
+    void delete_circle(void);
 
   private:
 

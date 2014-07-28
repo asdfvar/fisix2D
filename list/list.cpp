@@ -26,7 +26,7 @@ NODE::NODE() {
  * set circle object *
  *********************/
 
-void NODE::setCircleObj(CIRCLE* circle) {
+void NODE::set_circle_obj(CIRCLE* circle) {
   if (!have_circle)
      circle_obj = circle;
   else
@@ -77,11 +77,20 @@ void LIST::insert(CIRCLE *circle_obj) {
 
   insertNode(node);
 
-  node->setCircleObj(circle_obj);
+  node->set_circle_obj(circle_obj);
 
   this_circle_node = node;
 
   N_circle++;
+}
+
+/**************
+ * get circle *
+ **************/
+
+CIRCLE *LIST::get_circle(void) {
+
+  return this_circle;
 }
 
 /***************
@@ -172,6 +181,39 @@ CIRCLE *LIST::pop_circle(void) {
    }
 }
 
+/*****************
+ * delete circle *
+ *****************/
+
+void LIST::delete_circle(void) {
+
+  this_circle_node->delete_circle();
+
+  if (!this_circle_node->have_circle)
+    pop();
+
+}
+
+/*****************
+ * delete circle *
+ *****************/
+
+void NODE::delete_circle(void) {
+
+  if (have_circle) {
+
+    delete circle_obj;
+
+    std::cout
+      << "circle object at "
+      << circle_obj
+      << " deleted"
+      << std::endl;
+
+  }
+
+}
+
 /********************
  * goto next circle *
  ********************/
@@ -215,7 +257,7 @@ NODE *LIST::pop(void) {
      at->next = ptr->next;
      if (ptr->next != 0) ptr->next->prev = at;
 
-     std::cout << "node "
+     std::cout << "node at "
         << ptr << " popped"
         << std::endl;
 
@@ -253,5 +295,12 @@ LIST::~LIST() {
  *******************/
 
 NODE::~NODE() {
+
+  std::cout
+   << "circle at "
+   << circle_obj
+   << " deleted"
+   << std::endl;
+
   delete circle_obj;
 }
