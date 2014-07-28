@@ -22,14 +22,6 @@ NODE::NODE() {
   node_id = id++;
 }
 
-/*******************
- * Node destructor *
- *******************/
-
-NODE::~NODE() {
-  delete circle_obj;
-}
-
 /*********************
  * set circle object *
  *********************/
@@ -46,7 +38,7 @@ void NODE::setCircleObj(CIRCLE* circle) {
  * get circle object *
  *********************/
 
-CIRCLE *NODE::getCircle(void) {
+CIRCLE *NODE::get_circle(void) {
   if (have_circle)
      return circle_obj;
   else {
@@ -68,6 +60,9 @@ LIST::LIST() {
   N_node = 0;
   at = 0;
   N_circle = 0;
+  is_circular = true;
+  this_circle = 0;
+  this_circle_node = 0;
 }
 
 /*****************
@@ -75,6 +70,8 @@ LIST::LIST() {
  *****************/
 
 void LIST::insert(CIRCLE *circle_obj) {
+
+  this_circle = circle_obj;
 
   NODE *node = new NODE();
 
@@ -104,7 +101,10 @@ void LIST::insertNode(NODE *node) {
   if (N_node == 1) {
 
      at = node;
-     node->prev = node->next = 0;
+     if (is_circular)
+        node->prev = node->next = at;
+     else
+        node->prev = node->next = 0;
      beginning = end = at;
 
   } else {
@@ -125,22 +125,11 @@ void LIST::insertNode(NODE *node) {
             << at->next << std::endl;
 }
 
-/****************
- * Destroy list *
- ****************/
-
-LIST::~LIST() {
-
-  while (N_node > 0)
-    delete this->pop();
-
-}
-
 /******************
  * goto next node *
  ******************/
 
-void LIST::gotonext(void) {
+void LIST::goto_next(void) {
 
   at = at->next;
 
@@ -150,7 +139,7 @@ void LIST::gotonext(void) {
  * goto previous node *
  **********************/
 
-void LIST::gotoprev(void) {
+void LIST::goto_prev(void) {
 
   at = at->prev;
 
@@ -160,7 +149,7 @@ void LIST::gotoprev(void) {
  * pop circle *
  **************/
 
-CIRCLE *LIST::popCircle(void) {
+CIRCLE *LIST::pop_circle(void) {
 
   if (N_circle <= 0) {
 
@@ -170,12 +159,44 @@ CIRCLE *LIST::popCircle(void) {
   } else {
 
      N_circle--;
-     
-     CIRCLE *ptr;
+     CIRCLE *ptr = this_circle;
+     at->have_circle = false;
 
-     
+     if (!at->have_circle)
+       pop();
+
+     goto_next_circle();
+
+     return ptr;
 
    }
+}
+
+/********************
+ * goto next circle *
+ ********************/
+
+void LIST::goto_next_circle() {
+
+  if (N_circle <= 0) {
+     printf("No circles left\n");
+     return;
+  }
+
+  if (is_circular) {
+
+     at = this_circle_node;
+
+     while (!at->have_circle)
+        goto_next();
+
+     this_circle = at->get_circle();
+     this_circle_node = at;
+
+  } else
+     printf("Oops. Didn't make this case yet\n");
+
+
 }
 
 /************
@@ -214,4 +235,23 @@ NODE *LIST::pop(void) {
   }
 
   return ptr;
+}
+
+/****************
+ * Destroy list *
+ ****************/
+
+LIST::~LIST() {
+
+  while (N_node > 0)
+    delete this->pop();
+
+}
+
+/*******************
+ * Node destructor *
+ *******************/
+
+NODE::~NODE() {
+  delete circle_obj;
 }

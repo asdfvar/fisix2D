@@ -18,12 +18,12 @@ class NODE {
     int node_id;
 
     void setCircleObj(CIRCLE*);
-    CIRCLE *getCircle(void);
+    CIRCLE *get_circle(void);
+    bool have_circle;
 
   private:
 
     CIRCLE *circle_obj;
-    bool have_circle;
 };
 
  /********
@@ -37,22 +37,27 @@ class LIST {
     LIST();
    ~LIST();
 
+    // Circle
     void insert(CIRCLE*);
-    CIRCLE *popCircle(void); // working on making this
-    NODE *pop(void);
-    void gotonext(void);
-    void gotoprev(void);
+    void goto_next_circle();
+    CIRCLE *pop_circle(void); // working on making this
 
   private:
 
+    bool is_circular;
+
     /* Node */
-    NODE *at, *beginning, *end; // check beginning and end are used
+    NODE *at, *beginning, *end;
+    NODE *pop(void);
+    void goto_next(void);
+    void goto_prev(void);
     void insertNode(NODE*);
     int N_node;
 
     // Circle
     int N_circle;
     NODE *this_circle_node;
+    CIRCLE *this_circle;
 
 };
 
