@@ -3,27 +3,29 @@
 #include "shape.h"
 #include "list.h"
 
-class CIRCLE;
+class ASSEMBLY;
 
 int main() {
 
-  CIRCLE *ball = new CIRCLE;
+  ASSEMBLY *ball = new ASSEMBLY;
 
   LIST list;
 
-  list.insert(new CIRCLE);
-  list.insert(new CIRCLE);
-  list.insert(new CIRCLE);
+  list.insert(new ASSEMBLY);
+  list.insert(new ASSEMBLY);
+  list.insert(new ASSEMBLY);
 
-//  list.pop();
-//  list.pop();
+  ASSEMBLY *qwer = list.pop_assembly();
+  qwer = list.pop_assembly();
 
-  list.insert(new CIRCLE);
-  list.insert(new CIRCLE);
-  list.insert(new CIRCLE);
-  list.insert(new CIRCLE);
-  list.insert(new CIRCLE);
-  list.insert(new CIRCLE);
+  list.insert(new ASSEMBLY);
+  list.insert(new ASSEMBLY);
+  list.insert(new ASSEMBLY);
+  list.insert(new ASSEMBLY);
+  list.insert(new ASSEMBLY);
+  list.insert(new ASSEMBLY);
+
+  delete qwer;
 
   return 0;
 }
