@@ -1,6 +1,6 @@
 CPPC = g++
 INC = -I./list -I.
-OBJ = main.o shape.o list.o
+OBJ = main.o shape.o list.o gettime.o
 EXE = main
 
 PROG: $(OBJ)
@@ -16,6 +16,9 @@ list.o: list/list.cpp
 
 main.o: main.cpp list/list.h
 	$(CPPC) $(INC) $^ -c
+
+gettime.o: gettime.cpp
+	$(CPPC) $^ -c
 
 %.o: %.cpp
 	$(CPPC) $^ -c
