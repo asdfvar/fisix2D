@@ -1,10 +1,15 @@
 CPPC = g++
-INC = -I./list -I.
-OBJ = main.o shape.o list.o gettime.o
+INC = -I./list -I. -Idrawings
+FLAGS = -Wall -O3
+LINK = -lm -lGL -lGLU -lglut
+
+OBJ = main.o shape.o list.o gettime.o \
+      draw_circle.o
+
 EXE = main
 
 PROG: $(OBJ)
-	$(CPPC) $(INC) $(OBJ) -o $(EXE)
+	$(CPPC) $(FLAGS) $(INC) $(OBJ) -o $(EXE) $(LINK)
 
 all: $(PROG)
 
@@ -18,6 +23,9 @@ main.o: main.cpp list/list.h
 	$(CPPC) $(INC) $^ -c
 
 gettime.o: gettime.cpp
+	$(CPPC) $^ -c
+
+draw_circle.o: drawings/draw_circle.cpp
 	$(CPPC) $^ -c
 
 %.o: %.cpp
