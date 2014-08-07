@@ -3,33 +3,7 @@
 #include <GL/gl.h>
 #include <stdio.h>
 #include <iostream>
-#include "shape.h"
-#include "list.h"
-#include "drawings.h"
-
-
-void drawing(void) {
-
-   glClear(GL_COLOR_BUFFER_BIT);
-
-   /* insert gl drawings stuffs here */
-   draw_circle(
-          0.5,
-          0.25,
-          0.25);
-          
-   glFlush();
-
-}
-
-/* for computations and such */
-void processing(void) {
-
-   /* insert computations here */
-
-   glutPostRedisplay();
-
-}
+#include "main_files.h"
 
 int main(int argc, char** argv) {
 
