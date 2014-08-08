@@ -4,26 +4,19 @@
 #include <stdio.h>
 #include <iostream>
 #include "drawings.h"
+#include "fisix.h"
+
+FISIX program;
 
 void display(void) {
 
-   glClear(GL_COLOR_BUFFER_BIT);
-
-   /* insert gl drawings stuffs here */
-   draw_circle(
-          0.5,
-          0.25,
-          0.25);
-
-   glFlush();
+program.display();
 
 }
 
 void idle(void) {
 
-   /* insert computations here */
-
-   glutPostRedisplay();
+program.idle();
 
 }
 
