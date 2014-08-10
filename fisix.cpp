@@ -19,12 +19,6 @@ void FISIX::display(void) {
 
   glClear(GL_COLOR_BUFFER_BIT);
 
-   /* insert gl drawings stuffs here */
-   draw_circle(
-          0.5,
-          0.25,
-          0.25);
-
    CIRCLE *circ;
 
    for (int i = 0; i < circle_objs.N_circle; i++) {

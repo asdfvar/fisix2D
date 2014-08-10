@@ -129,7 +129,7 @@ void LIST_CIRCLE::insertNode(NODE_CIRCLE *node) {
 
   }
 
-  std::cout << "added a node at "
+  std::cout << "added a circle node at "
             << at << " with previous node at "
             << at->prev << " and next node at "
             << at->next << std::endl;
@@ -230,6 +230,7 @@ void LIST_CIRCLE::goto_next_circle() {
   if (is_circular) {
 
      at = this_circle_node;
+     goto_next();
 
      while (!at->have_circle)
         goto_next();

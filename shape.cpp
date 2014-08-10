@@ -65,5 +65,4 @@ void CIRCLE::draw(void) {
 
    draw_circle(0.5, x[0], y[0]);
 
-printf("drawing at %f, %f\n", x[0], y[0]);
 }
