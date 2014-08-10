@@ -230,6 +230,7 @@ void LIST::goto_next_assembly() {
   if (is_circular) {
 
      at = this_assembly_node;
+     goto_next();
 
      while (!at->have_assembly)
         goto_next();
