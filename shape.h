@@ -30,17 +30,8 @@ class CIRCLE: public SHAPE {
      * time and external forces                             *
      ********************************************************/
 
-     void update(float dt, float forcex, float forcey);
-
-    /******************************************************
-     * Conversion from an acceleration magnitude to an    *
-     * equivalent force for this object.                  *
-     *              F                                     *
-     *         a = ---                                    *
-     *              m                                     *
-     ******************************************************/
-
-     float acceleration_to_force(float a);
+     void update_force(float dt, float forcex, float forcey);
+     void update_acceleration(float dt, float ax, float ay);
 
      void draw(void);
 

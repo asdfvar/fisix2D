@@ -59,7 +59,7 @@ void FISIX::idle(void) {
       circle_objs.goto_next_circle();
 
       // update the circle positions, velocity, etc...
-      circ->update(dt, 0.1, 0.0);
+      circ->update_force(dt, 0.1, 0.0);
 
    }
 

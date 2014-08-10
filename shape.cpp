@@ -33,7 +33,7 @@ CIRCLE::CIRCLE(float x_in, float y_in) {
  * time and external forces                             *
  ********************************************************/
 
-void CIRCLE::update(float dt, /* delta time (seconds) */
+void CIRCLE::update_force(float dt, /* delta time (seconds) */
                float forcex,  /* force in x (N) */
                float forcey){ /* force in y (N) */
 
@@ -51,9 +51,26 @@ void CIRCLE::update(float dt, /* delta time (seconds) */
 
 }
 
-float CIRCLE::acceleration_to_force(float a) {
+/********************************************************
+ * Update the circle "ball" parameters based on a delta *
+ * time and the provided acceleration                   *
+ ********************************************************/
 
-   return mass * a;
+void CIRCLE::update_acceleration(float dt, /* delta time (seconds) */
+               float ax,  /* acceleration in x (N) */
+               float ay){ /* acceleration in y (N) */
+
+   // update the acceleration
+   x[2] = ax;
+   y[2] = ay;
+
+   // update the position
+   x[0] += x[1]*dt + 0.5*x[2]*dt*dt;
+   y[0] += y[1]*dt + 0.5*y[2]*dt*dt;
+
+   // update the velocity
+   x[1] += x[2]*dt;
+   y[1] += y[2]*dt;
 
 }
 
