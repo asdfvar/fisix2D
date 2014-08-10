@@ -23,6 +23,7 @@ class CIRCLE: public SHAPE {
   public:
 
      CIRCLE();
+     CIRCLE(float x_in, float y_in);
 
     /********************************************************
      * Update the circle "ball" parameters based on a delta *
@@ -40,6 +41,8 @@ class CIRCLE: public SHAPE {
      ******************************************************/
 
      float acceleration_to_force(float a);
+
+     void draw(void);
 
 };
 #endif

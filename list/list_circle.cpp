@@ -1,97 +1,97 @@
-#include "list.h"
-#include "assembly.h"
+#include "list_circle.h"
+#include "shape.h"
 #include <stdio.h>
 #include <iostream>
 
-class NODE;
-class LIST;
+class NODE_CIRCLE;
+class LIST_CIRCLE;
 
 /*||||||||||||
-  ||  NODE  ||
+  ||  NODE_CIRCLE  ||
   ||||||||||||*/
 
 /********************
  * Node constructor *
  ********************/
 
-NODE::NODE() {
+NODE_CIRCLE::NODE_CIRCLE() {
   static int id = 0;
 
-  assembly_obj = 0;
-  have_assembly = false;
+  circle_obj = 0;
+  have_circle = false;
   node_id = id++;
 }
 
 /*********************
- * set assembly object *
+ * set circle object *
  *********************/
 
-void NODE::set_assembly_obj(ASSEMBLY* assembly) {
-  if (!have_assembly) {
-     assembly_obj = assembly;
-     have_assembly = true;
+void NODE_CIRCLE::set_circle_obj(CIRCLE* circle) {
+  if (!have_circle) {
+     circle_obj = circle;
+     have_circle = true;
   } else
-     std::cout << "assembly already exists"
+     std::cout << "circle already exists"
           << std::endl;
 }
 
 /*********************
- * get assembly object *
+ * get circle object *
  *********************/
 
-ASSEMBLY *NODE::get_assembly(void) {
-  if (have_assembly)
-     return assembly_obj;
+CIRCLE *NODE_CIRCLE::get_circle(void) {
+  if (have_circle)
+     return circle_obj;
   else {
-     std::cout << "no assembly exists"
+     std::cout << "no circle exists"
           << std::endl;
      return 0;
   }
 }
 
 /*||||||||||||
-  ||  LIST  ||
+  ||  LIST_CIRCLE  ||
   ||||||||||||
 
  ********************
  * List constructor *
  ********************/
 
-LIST::LIST() {
+LIST_CIRCLE::LIST_CIRCLE() {
   N_node = 0;
   at = 0;
-  N_assembly = 0;
+  N_circle = 0;
   is_circular = true;
-  this_assembly = 0;
-  this_assembly_node = 0;
+  this_circle = 0;
+  this_circle_node = 0;
 }
 
 /*****************
  * insert Circle *
  *****************/
 
-void LIST::insert(ASSEMBLY *assembly_obj) {
+void LIST_CIRCLE::insert(CIRCLE *circle_obj) {
 
-  this_assembly = assembly_obj;
+  this_circle = circle_obj;
 
-  NODE *node = new NODE();
+  NODE_CIRCLE *node = new NODE_CIRCLE();
 
   insertNode(node);
 
-  node->set_assembly_obj(assembly_obj);
+  node->set_circle_obj(circle_obj);
 
-  this_assembly_node = node;
+  this_circle_node = node;
 
-  N_assembly++;
+  N_circle++;
 }
 
 /**************
- * get assembly *
+ * get circle *
  **************/
 
-ASSEMBLY *LIST::get_assembly(void) {
+CIRCLE *LIST_CIRCLE::get_circle(void) {
 
-  return this_assembly;
+  return this_circle;
 }
 
 /***************
@@ -104,7 +104,7 @@ ASSEMBLY *LIST::get_assembly(void) {
                  insert
 */
 
-void LIST::insertNode(NODE *node) {
+void LIST_CIRCLE::insertNode(NODE_CIRCLE *node) {
 
   N_node++;
 
@@ -139,7 +139,7 @@ void LIST::insertNode(NODE *node) {
  * goto next node *
  ******************/
 
-void LIST::goto_next(void) {
+void LIST_CIRCLE::goto_next(void) {
 
   at = at->next;
 
@@ -149,33 +149,33 @@ void LIST::goto_next(void) {
  * goto previous node *
  **********************/
 
-void LIST::goto_prev(void) {
+void LIST_CIRCLE::goto_prev(void) {
 
   at = at->prev;
 
 }
 
 /**************
- * pop assembly *
+ * pop circle *
  **************/
 
-ASSEMBLY *LIST::pop_assembly(void) {
+CIRCLE *LIST_CIRCLE::pop_circle(void) {
 
-  if (N_assembly <= 0) {
+  if (N_circle <= 0) {
 
-     printf("No assemblys left\n");
+     printf("No circles left\n");
      return 0;
 
   } else {
 
-     N_assembly--;
-     ASSEMBLY *ptr = this_assembly;
-     at->have_assembly = false;
+     N_circle--;
+     CIRCLE *ptr = this_circle;
+     at->have_circle = false;
 
-     if (!at->have_assembly)
+     if (!at->have_circle)
        pop();
 
-     goto_next_assembly();
+     goto_next_circle();
 
      return ptr;
 
@@ -183,32 +183,32 @@ ASSEMBLY *LIST::pop_assembly(void) {
 }
 
 /*****************
- * delete assembly *
+ * delete circle *
  *****************/
 
-void LIST::delete_assembly(void) {
+void LIST_CIRCLE::delete_circle(void) {
 
-  this_assembly_node->delete_assembly();
+  this_circle_node->delete_circle();
 
-  if (!this_assembly_node->have_assembly)
+  if (!this_circle_node->have_circle)
     pop();
 
 }
 
 /*****************
- * delete assembly *
+ * delete circle *
  *****************/
 
-void NODE::delete_assembly(void) {
+void NODE_CIRCLE::delete_circle(void) {
 
-  if (have_assembly) {
+  if (have_circle) {
 
-    delete assembly_obj;
-    have_assembly = false;
+    delete circle_obj;
+    have_circle = false;
 
     std::cout
-      << "assembly object at "
-      << assembly_obj
+      << "circle object at "
+      << circle_obj
       << " deleted"
       << std::endl;
 
@@ -217,25 +217,25 @@ void NODE::delete_assembly(void) {
 }
 
 /********************
- * goto next assembly *
+ * goto next circle *
  ********************/
 
-void LIST::goto_next_assembly() {
+void LIST_CIRCLE::goto_next_circle() {
 
-  if (N_assembly <= 0) {
-     printf("No assemblys left\n");
+  if (N_circle <= 0) {
+     printf("No circles left\n");
      return;
   }
 
   if (is_circular) {
 
-     at = this_assembly_node;
+     at = this_circle_node;
 
-     while (!at->have_assembly)
+     while (!at->have_circle)
         goto_next();
 
-     this_assembly = at->get_assembly();
-     this_assembly_node = at;
+     this_circle = at->get_circle();
+     this_circle_node = at;
 
   } else
      printf("Oops. Didn't make this case yet\n");
@@ -247,9 +247,9 @@ void LIST::goto_next_assembly() {
  * pop node *
  ************/
 
-NODE *LIST::pop(void) {
+NODE_CIRCLE *LIST_CIRCLE::pop(void) {
 
-  NODE *ptr = at;
+  NODE_CIRCLE *ptr = at;
 
   N_node--;
 
@@ -285,7 +285,7 @@ NODE *LIST::pop(void) {
  * Destroy list *
  ****************/
 
-LIST::~LIST() {
+LIST_CIRCLE::~LIST_CIRCLE() {
 
   while (N_node > 0)
     delete this->pop();
@@ -296,13 +296,13 @@ LIST::~LIST() {
  * Node destructor *
  *******************/
 
-NODE::~NODE() {
+NODE_CIRCLE::~NODE_CIRCLE() {
 
   std::cout
-   << "assembly at "
-   << assembly_obj
+   << "circle at "
+   << circle_obj
    << " deleted"
    << std::endl;
 
-  delete assembly_obj;
+  delete circle_obj;
 }

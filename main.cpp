@@ -8,11 +8,19 @@
 
 FISIX program;
 
+/*********************
+ * Display to screen *
+ *********************/
+
 void display(void) {
 
 program.display();
 
 }
+
+/*******************
+ * Idle processing *
+ *******************/
 
 void idle(void) {
 
@@ -20,6 +28,24 @@ program.idle();
 
 }
 
+/***************
+ * Mouse click *
+ ***************/
+
+void mouse(
+        int button,
+        int state,
+        int x,
+        int y)
+{
+
+program.mouse(button, state, x, y);
+
+}
+
+/********
+ * Main *
+ ********/
 
 int main(int argc, char** argv) {
 
@@ -33,10 +59,10 @@ int main(int argc, char** argv) {
    glutCreateWindow("2D Physics Sim");
 
    glutDisplayFunc(display);
+   glutMouseFunc(mouse);
 #if 0
    glutKeyboardUpFunc(keyboardUp);
    glutKeyboardFunc(keyboardDown);
-   glutMouseFunc(mouseclick);
    glutPassiveMotionFunc(mousePassive);
    glutMotionFunc(mouseMotion);
 #endif
