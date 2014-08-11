@@ -8,7 +8,12 @@
 #include "shape.h"
 #include "list_circle.h"
 
-FISIX::FISIX() {}
+FISIX::FISIX(int windowsizex_in,
+             int windowsizey_in)
+{
+   windowsizex = windowsizex_in;
+   windowsizey = windowsizey_in;
+}
 FISIX::~FISIX() {}
 
 /***********
@@ -59,7 +64,7 @@ void FISIX::idle(void) {
       circle_objs.goto_next_circle();
 
       // update the circle positions, velocity, etc...
-      circ->update_force(dt, 0.1, 0.0);
+      circ->update_acceleration(dt, 0.0, -0.5);
 
    }
 
@@ -89,8 +94,17 @@ void FISIX::mouse(
  *    4 : mouse wheel backward
  */
 
+   int row,col;
+   int Nrow = windowsizey;
+   int Ncol = windowsizex;
+
+   float xpos,ypos;
+
+   xpos = (float)x/windowsizex * 2.0 - 1.0;
+   ypos = 1.0 - 2.0 * (float)y/windowsizey;
+
    if (button == GLUT_LEFT_BUTTON &&
        state  == GLUT_DOWN)
-      circle_objs.insert(new CIRCLE);
+      circle_objs.insert(new CIRCLE(xpos, ypos));
 
 }

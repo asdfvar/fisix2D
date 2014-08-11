@@ -6,7 +6,10 @@
 #include "drawings.h"
 #include "fisix.h"
 
-FISIX program;
+int windowsizex = 800;
+int windowsizey = 800;
+
+FISIX program(windowsizex, windowsizey);
 
 /*********************
  * Display to screen *
@@ -48,9 +51,6 @@ program.mouse(button, state, x, y);
  ********/
 
 int main(int argc, char** argv) {
-
-   int windowsizex = 800;
-   int windowsizey = 800;
 
    glutInit(&argc, argv);
    glutInitDisplayMode(GLUT_RGB|GLUT_SINGLE);

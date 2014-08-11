@@ -4,7 +4,8 @@ class FISIX {
 
    public:
 
-      FISIX();
+      FISIX(int windowsizex_in,
+            int windowsizey_in);
       ~FISIX();
 
 /*************************
@@ -16,5 +17,10 @@ class FISIX {
       void mouse(int, int, int, int);
 
       LIST_CIRCLE circle_objs;
+
+   private:
+
+      int windowsizex,
+          windowsizey;
 
 };
