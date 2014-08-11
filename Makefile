@@ -4,7 +4,8 @@ FLAGS = -Wall -O3
 LINK = -lm -lGL -lGLU -lglut
 
 OBJ = main.o shape.o list.o gettime.o \
-      draw_circle.o fisix.o list_circle.o
+      draw_circle.o fisix.o list_circle.o \
+      drawings.o
 
 EXE = main
 
@@ -35,6 +36,9 @@ list_circle.o: list/list_circle.cpp
 	$(CPPC) $(INC) $^ -c
 
 shape.o: shape.cpp
+	$(CPPC) $(INC) $^ -c
+
+drawings.o: drawings/drawings.cpp
 	$(CPPC) $(INC) $^ -c
 
 %.o: %.cpp

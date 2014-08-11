@@ -1,6 +1,8 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
+#include "drawings.h"
+
 class SHAPE {
 
   public:
@@ -34,6 +36,10 @@ class CIRCLE: public SHAPE {
      void update_acceleration(float dt, float ax, float ay);
 
      void draw(void);
+
+  private:
+
+     DRAWINGS drawings;
 
 };
 #endif

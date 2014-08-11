@@ -6,8 +6,8 @@
 #include "drawings.h"
 #include "fisix.h"
 
-int windowsizex = 800;
-int windowsizey = 800;
+int windowsizex = 1200;
+int windowsizey = 1000;
 
 FISIX program(windowsizex, windowsizey);
 

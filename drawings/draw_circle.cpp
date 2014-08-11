@@ -2,18 +2,19 @@
 #include <GL/glu.h>
 #include <GL/gl.h>
 #include <cmath>
+#include "drawings.h"
 
 #define PI 3.14159265358979
 
-void draw_circle (
+void DRAWINGS::draw_circle (
            float diameter,
            float x0,
            float y0,
-           float scale = 1.0,
-           int  N = 40,
-           char red = 255,
-           char green = 255,
-           char blue = 255) {
+           int  N,
+           char red,
+           char green,
+           char blue)
+{
 
    float tmp;
    float x,y;

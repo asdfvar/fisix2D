@@ -7,6 +7,7 @@
 #include "drawings.h"
 #include "shape.h"
 #include "list_circle.h"
+#include "drawings.h"
 
 FISIX::FISIX(int windowsizex_in,
              int windowsizey_in)
@@ -34,6 +35,7 @@ void FISIX::display(void) {
       // advance the list to the next circle node
       circle_objs.goto_next_circle();
 
+      // draw this circle
       circ->draw();
 
    }
