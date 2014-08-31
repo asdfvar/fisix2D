@@ -5,7 +5,7 @@ LINK = -lm -lGL -lGLU -lglut
 
 OBJ = main.o shape.o list.o gettime.o \
       draw_circle.o fisix.o list_circle.o \
-      drawings.o
+      drawings.o draw_line.o line.o
 
 EXE = main
 
@@ -39,6 +39,12 @@ shape.o: shape.cpp
 	$(CPPC) $(INC) $^ -c
 
 drawings.o: drawings/drawings.cpp
+	$(CPPC) $(INC) $^ -c
+
+draw_line.o: drawings/draw_line.cpp
+	$(CPPC) $(INC) $^ -c
+
+line.o: line.cpp
 	$(CPPC) $(INC) $^ -c
 
 %.o: %.cpp
