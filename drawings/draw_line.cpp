@@ -8,7 +8,7 @@ void DRAWINGS::draw_line (
       float y1,
       float x2,
       float y2,
-      char red, char green, char blue)
+      float red, float green, float blue)
 {
 
    glLineWidth(2.5);

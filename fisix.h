@@ -1,4 +1,5 @@
 #include "list_circle.h"
+#include "list_line.h"
 
 class FISIX {
 
@@ -17,6 +18,7 @@ class FISIX {
       void mouse(int, int, int, int);
 
       LIST_CIRCLE circle_objs;
+      LIST_LINE line_objs;
 
    private:
 

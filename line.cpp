@@ -14,6 +14,8 @@ LINE::LINE(
 
 }
 
+LINE::~LINE() {}
+
 void LINE::draw() {
 
    drawings.draw_line(x1,y1,x2,y2);

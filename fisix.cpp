@@ -6,42 +6,26 @@
 #include "fisix.h"
 #include "drawings.h"
 #include "shape.h"
+#include "line.h"
 #include "list_circle.h"
+#include "list_line.h"
 #include "drawings.h"
+
+/*****************
+ * Initial stuff *
+ *****************/
 
 FISIX::FISIX(int windowsizex_in,
              int windowsizey_in)
 {
    windowsizex = windowsizex_in;
    windowsizey = windowsizey_in;
+
+   line_objs.insert(new LINE(-0.5, -0.5, 0.5, 0.5));
+
 }
+
 FISIX::~FISIX() {}
-
-/***********
- * Display *
- ***********/
-
-void FISIX::display(void) {
-
-  glClear(GL_COLOR_BUFFER_BIT);
-
-   CIRCLE *circ;
-
-   for (int i = 0; i < circle_objs.N_circle; i++) {
-
-      // extract the current circle from the list
-      circ = circle_objs.get_circle();
-
-      // advance the list to the next circle node
-      circle_objs.goto_next_circle();
-
-      // draw this circle
-      circ->draw();
-
-   }
-
-   glFlush();
-}
 
 /*******************
  * Idle processing *
@@ -72,6 +56,37 @@ void FISIX::idle(void) {
 
    glutPostRedisplay();
 
+}
+
+/***********
+ * Display *
+ ***********/
+
+void FISIX::display(void) {
+
+  glClear(GL_COLOR_BUFFER_BIT);
+
+   CIRCLE *circ;
+
+   for (int i = 0; i < circle_objs.N_circle; i++) {
+
+      // extract the current circle from the list
+      circ = circle_objs.get_circle();
+
+      // advance the list to the next circle node
+      circle_objs.goto_next_circle();
+
+      // draw this circle
+      circ->draw();
+
+   }
+
+   LINE *line;
+
+   line = line_objs.get_line();
+   line->draw();
+
+   glFlush();
 }
 
 /***************

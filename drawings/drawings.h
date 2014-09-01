@@ -22,9 +22,9 @@ class DRAWINGS {
            float y1,
            float x2,
            float y2,
-           char red = 255,
-           char green = 255,
-           char blue = 255);
+           float red   = 1.0,
+           float green = 1.0,
+           float blue  = 1.0);
 
    private:
 
