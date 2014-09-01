@@ -1,11 +1,11 @@
 CPPC = g++
-INC = -I. -Ilist -Idrawings
+INC = -I. -Ilist -Idrawings -Itools
 FLAGS = -Wall -O3
 LINK = -lm -lGL -lGLU -lglut
 
 OBJ = main.o shape.o list.o gettime.o \
       draw_circle.o fisix.o list_circle.o \
-      drawings.o draw_line.o line.o
+      drawings.o draw_line.o line.o tools.o
 
 EXE = main
 
@@ -45,6 +45,9 @@ draw_line.o: drawings/draw_line.cpp
 	$(CPPC) $(INC) $^ -c
 
 line.o: line.cpp
+	$(CPPC) $(INC) $^ -c
+
+tools.o: tools/tools.cpp
 	$(CPPC) $(INC) $^ -c
 
 %.o: %.cpp
