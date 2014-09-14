@@ -1,6 +1,13 @@
 #include "line.h"
 #include "drawings.h"
 
+LINE::LINE(void){
+   x1 = 0.0;
+   y1 = 0.0;
+   x2 = 0.0;
+   y2 = 0.0;
+}
+
 LINE::LINE(
         float x1_in,
         float y1_in,
@@ -15,6 +22,22 @@ LINE::LINE(
 }
 
 LINE::~LINE() {}
+
+float LINE::getx1(void) {
+   return x1;
+}
+
+float LINE::gety1(void) {
+   return y1;
+}
+
+float LINE::getx2(void) {
+   return x2;
+}
+
+float LINE::gety2(void) {
+   return y2;
+}
 
 void LINE::draw() {
 
