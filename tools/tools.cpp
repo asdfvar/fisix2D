@@ -76,7 +76,24 @@ void collideWithLine(CIRCLE *circle, LINE *line) {
    }
 
    if (collision) {
-      std::cout << "HIT" << std::endl;
+
+      // get the normal vector from the line to the
+      // center of the circle
+
+      float px = x2-x1;
+      float py = y2-y1;
+      float qx = x0-x1;
+      float qy = y0-y1;
+      float norm = sqrt(px*px + py*py);
+      px /= norm;
+      py /= norm;
+      float dotp = px*qx + py*qy;
+      float nx = qx - dotp*px;
+      float ny = qy - dotp*py;
+
+      std::cout << nx << ", " << ny << std::endl;
+      // then compute the resulting vector direction the ball bounces to and use that elasticity and junk
+
       circle->setVely(-e*vy);
    }
 }
