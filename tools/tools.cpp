@@ -61,21 +61,13 @@ void collideWithLine(CIRCLE *circle, LINE *line) {
    float dist = distance2Line(x1, y1, x2, y2, x0, y0);
 
    float diameter = circle->getDiameter();
-   bool collision;
 
-   bool colliding = circle->getColliding();
+   if (2.0*dist <= diameter) {
 
-   if (2*dist <= diameter && !colliding) {
-      collision = true;
-      circle->setColliding(true);
-   } else if (2*dist <= diameter && colliding) {
-      collision = false;
-   } else {
-      collision = false;
-      circle->setColliding(false);
-   }
-
-   if (collision) {
+      /* check the dot product of the ball velocity
+         and the normal vector of the line. If they
+         are in the opposite direction (-), then
+         there is a collision. */
 
       // get the normal vector from the line to the
       // center of the circle
@@ -89,36 +81,56 @@ void collideWithLine(CIRCLE *circle, LINE *line) {
       py /= norm;
       float dotp = px*qx + py*qy;
 
-      // compute the normal vector (length is from surface to the center of the ball)
+      // compute the normal vector
+      // (length is from surface to the center of the ball)
       float nx = qx - dotp*px;
       float ny = qy - dotp*py;
 
-      std::cout << nx << ", " << ny << std::endl;
+      // compute the dot product of the ball velocity
+      // and the normal vector to the surface
+      dotp = nx*vx + ny*vy;
+      
       // normalize the normal vector
       norm = sqrtf(nx*nx + ny*ny);
       nx /= norm;
       ny /= norm;
 
-      // projection matrix
-      float T11 = nx*nx;
-      float T12 = nx*ny;
-      float T21 = T12;
-      float T22 = ny*ny;
+      if (dotp < 0.0) {
+         // projection matrix
+         float T11 = nx*nx;
+         float T12 = nx*ny;
+         float T21 = T12;
+         float T22 = ny*ny;
 
-      // project the ball velocity vector onto the normal vector
-      float Pu_nx = T11*vx + T12*vy;
-      float Pu_ny = T21*vx + T22*vy;
+         // project the ball velocity vector onto the normal vector
+         float Pu_nx = T11*vx + T12*vy;
+         float Pu_ny = T21*vx + T22*vy;
 
-      // compute the new velocity direction
-      vx -= 2.0*Pu_nx;
-      vy -= 2.0*Pu_ny;
+         // compute the new velocity direction
+         vx -= 2.0*Pu_nx;
+         vy -= 2.0*Pu_ny;
 
-      // reduce the velocity based on the elasticity of the ball
-      vx *= e;
-      vy *= e;
+         // reduce the velocity based on the elasticity of the ball
+         vx *= e;
+         vy *= e;
 
-      //circle->setVely(-e*vy);
-      circle->setVelx(vx);
-      circle->setVely(vy);
+         // circle->setVely(-e*vy);
+         circle->setVelx(vx);
+         circle->setVely(vy);
+
+      } else {
+
+         // the ball is intersecting the line but traveling
+         // the away from the line. Move it away from the line
+
+         float delta = diameter / 2.0 - dist;
+
+         x0 += delta*nx;
+         y0 += delta*ny;
+
+         circle->setPosx(x0);
+         circle->setPosy(y0);
+
+      }
    }
 }

@@ -44,11 +44,11 @@ class CIRCLE: public SHAPE {
      float getElasticity(void);
      float getVelx(void);
      float getVely(void);
-     bool getColliding(void);
 
+     void setPosx(float);
+     void setPosy(float);
      void setVelx(float);
      void setVely(float);
-     void setColliding(bool);
 
      void draw(void);
 
@@ -57,7 +57,6 @@ class CIRCLE: public SHAPE {
      DRAWINGS drawings;
      float diameter;
      float elasticity;
-     bool colliding;
 
 };
 #endif

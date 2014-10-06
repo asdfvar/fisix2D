@@ -16,7 +16,6 @@ CIRCLE::CIRCLE() {
    w[0] = w[1] = w[2] = 0.0;
    diameter = 0.25;
    elasticity = 1.0;
-   colliding = false;
 
 }
 
@@ -30,7 +29,6 @@ CIRCLE::CIRCLE(float x_in, float y_in) {
    w[0] = w[1] = w[2] = 0.0;
    diameter = 0.25;
    elasticity = 1.0;
-   colliding = false;
 
 }
 
@@ -44,7 +42,6 @@ CIRCLE::CIRCLE(float x_in, float y_in, float diameter_in) {
    w[0] = w[1] = w[2] = 0.0;
    diameter = diameter_in;
    elasticity = 1.0;
-   colliding = false;
 
 }
 
@@ -59,7 +56,6 @@ CIRCLE::CIRCLE(float x_in, float y_in, float diameter_in,
    w[0] = w[1] = w[2] = 0.0;
    diameter = diameter_in;
    elasticity = elasticity_in;
-   colliding = false;
 
 }
 
@@ -162,6 +158,22 @@ float CIRCLE::getElasticity(void) {
 }
 
 /*********************
+ * set position in x *
+ *********************/
+
+void CIRCLE::setPosx(float x0) {
+   x[0] = x0;
+}
+
+/*********************
+ * set position in y *
+ *********************/
+
+void CIRCLE::setPosy(float y0) {
+   y[0] = y0;
+}
+
+/*********************
  * set velocity in x *
  *********************/
 
@@ -175,22 +187,6 @@ void CIRCLE::setVelx(float vx) {
 
 void CIRCLE::setVely(float vy) {
    y[1] = vy;
-}
-
-/*****************
- * get collision *
- *****************/
-
-bool CIRCLE::getColliding(void) {
-   return colliding;
-}
-
-/*******************************
- * set collision true or false *
- *******************************/
-
-void CIRCLE::setColliding(bool colliding_in) {
-   colliding = colliding_in;
 }
 
 /*******************
