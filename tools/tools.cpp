@@ -84,16 +84,41 @@ void collideWithLine(CIRCLE *circle, LINE *line) {
       float py = y2-y1;
       float qx = x0-x1;
       float qy = y0-y1;
-      float norm = sqrt(px*px + py*py);
+      float norm = sqrtf(px*px + py*py);
       px /= norm;
       py /= norm;
       float dotp = px*qx + py*qy;
+
+      // compute the normal vector (length is from surface to the center of the ball)
       float nx = qx - dotp*px;
       float ny = qy - dotp*py;
 
       std::cout << nx << ", " << ny << std::endl;
-      // then compute the resulting vector direction the ball bounces to and use that elasticity and junk
+      // normalize the normal vector
+      norm = sqrtf(nx*nx + ny*ny);
+      nx /= norm;
+      ny /= norm;
 
-      circle->setVely(-e*vy);
+      // projection matrix
+      float T11 = nx*nx;
+      float T12 = nx*ny;
+      float T21 = T12;
+      float T22 = ny*ny;
+
+      // project the ball velocity vector onto the normal vector
+      float Pu_nx = T11*vx + T12*vy;
+      float Pu_ny = T21*vx + T22*vy;
+
+      // compute the new velocity direction
+      vx -= 2.0*Pu_nx;
+      vy -= 2.0*Pu_ny;
+
+      // reduce the velocity based on the elasticity of the ball
+      vx *= e;
+      vy *= e;
+
+      //circle->setVely(-e*vy);
+      circle->setVelx(vx);
+      circle->setVely(vy);
    }
 }
