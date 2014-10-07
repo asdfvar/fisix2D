@@ -107,12 +107,8 @@ void collideWithLine(CIRCLE *circle, LINE *line) {
          float Pu_ny = T21*vx + T22*vy;
 
          // compute the new velocity direction
-         vx -= 2.0*Pu_nx;
-         vy -= 2.0*Pu_ny;
-
-         // reduce the velocity based on the elasticity of the ball
-         vx *= e;
-         vy *= e;
+         vx -= Pu_nx*(1.0 + e);
+         vy -= Pu_ny*(1.0 + e);
 
          // circle->setVely(-e*vy);
          circle->setVelx(vx);
