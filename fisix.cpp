@@ -23,6 +23,7 @@ FISIX::FISIX(int windowsizex_in,
    windowsizey = windowsizey_in;
 
    line_objs.insert(new LINE(-0.5, -0.5, 0.5, -0.45));
+   line_objs.insert(new LINE(-0.5, 0.5, 0.5, -1.5));
 
 }
 
@@ -99,8 +100,18 @@ void FISIX::display(void) {
 
    LINE *line;
 
-   line = line_objs.get_line();
-   line->draw();
+   for (int i = 0; i < line_objs.N_line; i++) {
+
+      // extract the current line from the list
+      line = line_objs.get_line();
+
+      // advance the list to the next line node
+      line_objs.goto_next_line();
+
+      // draw this line
+      line->draw();
+
+   }
 
    glFlush();
 }
