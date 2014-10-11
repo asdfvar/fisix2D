@@ -130,3 +130,31 @@ void collideWithLine(CIRCLE *circle, LINE *line) {
       }
    }
 }
+
+void collideWithCircle (CIRCLE *circle1, CIRCLE *circle2) {
+
+   float c1x = circle1->getx0();
+   float c1y = circle1->gety0();
+   float c1e  = circle1->getElasticity();
+   float c1vx = circle1->getVelx();
+   float c1vy = circle1->getVely();
+
+   float c2x = circle2->getx0();
+   float c2y = circle2->gety0();
+   float c2e  = circle2->getElasticity();
+   float c2vx = circle2->getVelx();
+   float c2vy = circle2->getVely();
+
+   float dist2 = (c1x-c2x)*(c1x-c2x) + (c1y-c2y)*(c1y-c2y);
+
+   float diameter1 = circle1->getDiameter();
+   float diameter2 = circle2->getDiameter();
+
+   // check if the two intersect
+   if ( 4*dist2 <= (diameter1 + diameter2)*(diameter1 + diameter2) ) {
+
+      // do some logic reguarding the velocity directions and the
+      // relative positions
+
+   }
+}
