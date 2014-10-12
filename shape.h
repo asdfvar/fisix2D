@@ -41,6 +41,7 @@ class CIRCLE: public SHAPE {
      float getx0(void);
      float gety0(void);
      float getDiameter(void);
+     float getMass(void);
      float getElasticity(void);
      float getVelx(void);
      float getVely(void);

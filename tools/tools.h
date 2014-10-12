@@ -16,4 +16,8 @@
            CIRCLE*,
            LINE*);
 
+void collideWithCircle(
+           CIRCLE *circle1,
+           CIRCLE *circle2);
+
 #endif

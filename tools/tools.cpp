@@ -138,12 +138,14 @@ void collideWithCircle (CIRCLE *circle1, CIRCLE *circle2) {
    float c1e  = circle1->getElasticity();
    float c1vx = circle1->getVelx();
    float c1vy = circle1->getVely();
+   float mass1 = circle1->getMass();
 
    float c2x = circle2->getx0();
    float c2y = circle2->gety0();
    float c2e  = circle2->getElasticity();
    float c2vx = circle2->getVelx();
    float c2vy = circle2->getVely();
+   float mass2 = circle2->getMass();
 
    float dist2 = (c1x-c2x)*(c1x-c2x) + (c1y-c2y)*(c1y-c2y);
 
@@ -153,8 +155,32 @@ void collideWithCircle (CIRCLE *circle1, CIRCLE *circle2) {
    // check if the two intersect
    if ( 4*dist2 <= (diameter1 + diameter2)*(diameter1 + diameter2) ) {
 
-      // do some logic reguarding the velocity directions and the
-      // relative positions
+      // compute relative velocities and positions
+      float vx12 = c2vx - c1vx;
+      float vy12 = c2vy - c1vy;
+      float x12  = c2x  - c1x;
+      float y12  = c2y  - c1y;
+
+      /* There is a collision if one circle is traveling towards the
+         other one (relatively) */
+      if (vx12*x12 + vy12*y12 < 0.0) {
+         float v1xnew = mass1*c1vx - mass2*(c1vx - 2.0*c2vx);
+               v1xnew /= mass1 + mass2;
+         float v1ynew = mass1*c1vy - mass2*(c1vy - 2.0*c2vy);
+               v1ynew /= mass1 + mass2;
+         float v2xnew = mass2*c2vx - mass1*(c2vx - 2.0*c1vx);
+               v2xnew /= mass1 + mass2;
+         float v2ynew = mass2*c2vy - mass1*(c2vy - 2.0*c1vy);
+               v2ynew /= mass1 + mass2;
+
+         circle1->setVelx(v1xnew);
+         circle1->setVely(v1ynew);
+         circle2->setVelx(v2xnew);
+         circle2->setVely(v2ynew);
+
+      } else {
+         // update the position by pushing the circles away from each other
+      }
 
    }
 }

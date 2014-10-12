@@ -149,6 +149,13 @@ float CIRCLE::getDiameter(void) {
    return diameter;
 }
 
+/****************
+ * get mass     *
+ ****************/
+
+float CIRCLE::getMass(void) {
+   return mass;
+}
 /******************
  * get elasticity *
  ******************/

@@ -44,31 +44,50 @@ void FISIX::idle(void) {
 
    float dt = gettime();
 
-   CIRCLE *circ;
+   CIRCLE *circle, *otherCircle;
    LINE   *line;
 
    // update the circles by dt
    for (int i = 0; i < circle_objs.N_circle; i++) {
       // extract the current circle from the list
-      circ = circle_objs.get_circle();
+      circle = circle_objs.get_circle();
       // advance the list to the next circle node
       circle_objs.goto_next_circle();
       // update the acceleration
-      circ->update_acceleration(0.0, -0.5);
+      circle->update_acceleration(0.0, -0.5);
       // update the circle positions, velocity, etc...
-      circ->update(dt);
+      circle->update(dt);
    }
-   // determine any interactions
+
+   // determine interactions with lines
    for (int iCircle = 0; iCircle < circle_objs.N_circle; iCircle++) {
-      circ = circle_objs.get_circle();
+
+      circle = circle_objs.get_circle();
+
       for (int iLine = 0; iLine < line_objs.N_line; iLine++) {
          line = line_objs.get_line();
-         collideWithLine(circ, line);
+         collideWithLine(circle, line);
 
          line_objs.goto_next_line();
       }
 
       circle_objs.goto_next_circle();
+   }
+
+   // determine interactions with other circles
+   for (int iCircle = 0; iCircle < circle_objs.N_circle; iCircle++) {
+
+      circle = circle_objs.get_circle();
+
+      for (int jCircle = 0; jCircle < circle_objs.N_circle; jCircle++) {
+
+         circle_objs.goto_next_circle();
+         otherCircle = circle_objs.get_circle();
+
+         collideWithCircle(circle, otherCircle);
+
+      }
+
    }
 
    glutPostRedisplay();
@@ -83,18 +102,18 @@ void FISIX::display(void) {
 
   glClear(GL_COLOR_BUFFER_BIT);
 
-   CIRCLE *circ;
+   CIRCLE *circle;
 
    for (int i = 0; i < circle_objs.N_circle; i++) {
 
       // extract the current circle from the list
-      circ = circle_objs.get_circle();
+      circle = circle_objs.get_circle();
 
       // advance the list to the next circle node
       circle_objs.goto_next_circle();
 
       // draw this circle
-      circ->draw();
+      circle->draw();
 
    }
 
