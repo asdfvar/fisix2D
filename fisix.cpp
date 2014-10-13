@@ -79,7 +79,7 @@ void FISIX::idle(void) {
 
       circle = circle_objs.get_circle();
 
-      for (int jCircle = 0; jCircle < circle_objs.N_circle; jCircle++) {
+      for (int jCircle = 0; jCircle < circle_objs.N_circle - 1; jCircle++) {
 
          circle_objs.goto_next_circle();
          otherCircle = circle_objs.get_circle();
