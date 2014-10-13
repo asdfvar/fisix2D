@@ -14,7 +14,7 @@ CIRCLE::CIRCLE() {
    x[0] = x[1] = x[2] = 0.0;
    y[0] = y[1] = y[2] = 0.0;
    w[0] = w[1] = w[2] = 0.0;
-   diameter = 0.25;
+   diameter = 0.1;
    elasticity = 1.0;
 
 }
@@ -27,7 +27,7 @@ CIRCLE::CIRCLE(float x_in, float y_in) {
    x[1] = x[2] = 0.0;
    y[1] = y[2] = 0.0;
    w[0] = w[1] = w[2] = 0.0;
-   diameter = 0.25;
+   diameter = 0.1;
    elasticity = 1.0;
 
 }

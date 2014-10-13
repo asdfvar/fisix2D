@@ -58,9 +58,6 @@ program.mouse(button, state, x, y);
 
 void mouseMotion(int x, int y) {
 
-   std::cout << "x = " << x << std::endl;
-   std::cout << "y = " << y << std::endl;
-
    program.mouseMotion(x, y);
 }
 #if 0

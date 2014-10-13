@@ -184,7 +184,7 @@ void FISIX::mouse(
 
    if (button == GLUT_LEFT_BUTTON &&
        state  == GLUT_DOWN)
-         circle_objs.insert(new CIRCLE(xpos, ypos, 0.125, 0.9));
+         circle_objs.insert(new CIRCLE(xpos, ypos, 0.05, 0.9));
 
    activeP2x = x;
    activeP2y = y;
