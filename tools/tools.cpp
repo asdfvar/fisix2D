@@ -164,14 +164,45 @@ void collideWithCircle (CIRCLE *circle1, CIRCLE *circle2) {
       /* There is a collision if one circle is traveling towards the
          other one (relatively) */
       if (vx12*x12 + vy12*y12 < 0.0) {
-         float v1xnew = mass1*c1vx - mass2*(c1vx - 2.0*c2vx);
+
+         // normal vector from circle 1 to circle 2
+         float norm = sqrtf(x12*x12 + y12*y12);
+         x12 /= norm;
+         y12 /= norm;
+
+         // projection matrix
+         float T11 = x12*x12;
+         float T12 = x12*y12;
+         float T21 = T12;
+         float T22 = y12*y12;
+
+         // project the ball velocity vector onto the normal vector
+         float v1nx = T11*c1vx + T12*c1vy;
+         float v1ny = T21*c1vx + T22*c1vy;
+         float v2nx = T11*c2vx + T12*c2vy;
+         float v2ny = T21*c2vx + T22*c2vy;
+
+         // get the orthogonal velocity vectors
+         float v1px = c1vx - v1nx;
+         float v1py = c1vy - v1ny;
+         float v2px = c2vx - v2nx;
+         float v2py = c2vy - v2ny;
+
+         /* change the normal velocity vector by conserving
+            momentum and kinetic energy */
+         float v1xnew = mass1*v1nx - mass2*(v1nx - 2.0*v2nx);
                v1xnew /= mass1 + mass2;
-         float v1ynew = mass1*c1vy - mass2*(c1vy - 2.0*c2vy);
+         float v1ynew = mass1*v1ny - mass2*(v1ny - 2.0*v2ny);
                v1ynew /= mass1 + mass2;
-         float v2xnew = mass2*c2vx - mass1*(c2vx - 2.0*c1vx);
+         float v2xnew = mass2*v2nx - mass1*(v2nx - 2.0*v1nx);
                v2xnew /= mass1 + mass2;
-         float v2ynew = mass2*c2vy - mass1*(c2vy - 2.0*c1vy);
+         float v2ynew = mass2*v2ny - mass1*(v2ny - 2.0*v1ny);
                v2ynew /= mass1 + mass2;
+
+         v1xnew += v1px;
+         v1ynew += v1py;
+         v2xnew += v2px;
+         v2ynew += v2py;
 
          circle1->setVelx(v1xnew);
          circle1->setVely(v1ynew);
