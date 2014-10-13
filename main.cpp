@@ -42,9 +42,34 @@ void mouse(
         int y)
 {
 
+/*
+   button
+      GLUT_LEFT_BUTTON
+      GLUT_MIDDLE_BUTTON
+      GLUT_RIGHT_BUTTON
+   state
+      GLUT_UP
+      GLUT_DOWN
+*/
+
 program.mouse(button, state, x, y);
 
 }
+
+void mouseMotion(int x, int y) {
+
+   std::cout << "x = " << x << std::endl;
+   std::cout << "y = " << y << std::endl;
+
+   program.mouseMotion(x, y);
+}
+#if 0
+void mousePassive(int x, int y) {
+
+   std::cout << "x = " << x << std::endl;
+   std::cout << "y = " << y << std::endl;
+}
+#endif
 
 /********
  * Main *
@@ -60,11 +85,11 @@ int main(int argc, char** argv) {
 
    glutDisplayFunc(display);
    glutMouseFunc(mouse);
+   glutMotionFunc(mouseMotion);
+//   glutPassiveMotionFunc(mousePassive);
 #if 0
    glutKeyboardUpFunc(keyboardUp);
    glutKeyboardFunc(keyboardDown);
-   glutPassiveMotionFunc(mousePassive);
-   glutMotionFunc(mouseMotion);
 #endif
    glutIdleFunc(idle);
 

@@ -22,9 +22,11 @@ FISIX::FISIX(int windowsizex_in,
    windowsizex = windowsizex_in;
    windowsizey = windowsizey_in;
 
-   line_objs.insert(new LINE(-0.5, -0.5, 0.5, -0.5));
-   line_objs.insert(new LINE(-0.5, 0.5, 0.5, -1.5));
-   line_objs.insert(new LINE(0.0, -1.5, 0.5, 0.5));
+   activeClick = false;
+   activeP1x   = 0;
+   activeP1y   = 0;
+   activeP2x   = 0;
+   activeP2y   = 0;
 
 }
 
@@ -103,6 +105,19 @@ void FISIX::display(void) {
 
   glClear(GL_COLOR_BUFFER_BIT);
 
+   // draw line as it is being made by the user
+   if (activeClick) {
+
+      DRAWINGS draw;
+
+      draw.draw_line (activeX1,
+                      activeY1,
+                      activeX2,
+                      activeY2,
+                      1.0, 1.0, 0.0);
+
+   }
+
    CIRCLE *circle;
 
    for (int i = 0; i < circle_objs.N_circle; i++) {
@@ -169,6 +184,40 @@ void FISIX::mouse(
 
    if (button == GLUT_LEFT_BUTTON &&
        state  == GLUT_DOWN)
-      circle_objs.insert(new CIRCLE(xpos, ypos, 0.125, 0.9));
+         circle_objs.insert(new CIRCLE(xpos, ypos, 0.125, 0.9));
 
+   activeP2x = x;
+   activeP2y = y;
+   activeX2 = -((float)(windowsizex - 2*activeP2x))/windowsizex;
+   activeY2 = ((float)(windowsizey - 2*activeP2y))/windowsizey;
+   if (button == GLUT_RIGHT_BUTTON &&
+       state  == GLUT_DOWN) {
+
+         activeP1x = x;
+         activeP1y = y;
+
+         activeX1 = -((float)(windowsizex - 2*activeP1x))/windowsizex;
+         activeY1 = ((float)(windowsizey - 2*activeP1y))/windowsizey;
+
+         activeClick = true;
+
+   } else if (button == GLUT_RIGHT_BUTTON &&
+       state  == GLUT_UP) {
+
+         activeClick = false;
+         line_objs.insert(new LINE(activeX1, activeY1, activeX2, activeY2));
+
+   }
+}
+
+/****************
+ * Mouse Motion *
+ ****************/
+
+void FISIX::mouseMotion(int x, int y) {
+
+   activeP2x = x;
+   activeP2y = y;
+   activeX2 = -((float)(windowsizex - 2*activeP2x))/windowsizex;
+   activeY2 = ((float)(windowsizey - 2*activeP2y))/windowsizey;
 }

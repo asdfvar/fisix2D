@@ -16,6 +16,7 @@ class FISIX {
       void display(void);
       void idle(void);
       void mouse(int, int, int, int);
+      void mouseMotion(int x, int y);
 
       LIST_CIRCLE circle_objs;
       LIST_LINE line_objs;
@@ -24,5 +25,17 @@ class FISIX {
 
       int windowsizex,
           windowsizey;
+
+      bool activeClick;
+
+      int activeP1x,
+          activeP1y,
+          activeP2x,
+          activeP2y;
+
+      float activeX1,
+            activeY1,
+            activeX2,
+            activeY2;
 
 };
