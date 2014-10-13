@@ -22,8 +22,9 @@ FISIX::FISIX(int windowsizex_in,
    windowsizex = windowsizex_in;
    windowsizey = windowsizey_in;
 
-   line_objs.insert(new LINE(-0.5, -0.5, 0.5, -0.45));
+   line_objs.insert(new LINE(-0.5, -0.5, 0.5, -0.5));
    line_objs.insert(new LINE(-0.5, 0.5, 0.5, -1.5));
+   line_objs.insert(new LINE(0.0, -1.5, 0.5, 0.5));
 
 }
 
