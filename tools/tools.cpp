@@ -210,7 +210,29 @@ void collideWithCircle (CIRCLE *circle1, CIRCLE *circle2) {
          circle2->setVely(v2ynew);
 
       } else {
-         // update the position by pushing the circles away from each other
+         /* This case, the balls intersect each other but are moving
+            away from each other. We want to move them away from
+            each other */
+
+         // normal vector from circle 1 to circle 2
+         float norm = sqrtf(x12*x12 + y12*y12);
+         x12 /= norm;
+         y12 /= norm;
+
+         float err = 0.5*(diameter1 + diameter2) - sqrtf(dist2);
+         err *= 0.5;
+
+         /* Each of the two balls are moved half of the distance
+            of their intersection away from each other */
+         c1x -= err * x12;
+         c1y -= err * y12;
+         c2x += err * x12;
+         c2y += err * y12;
+
+         circle1->setPosx(c1x);
+         circle1->setPosy(c1y);
+         circle2->setPosx(c2x);
+         circle2->setPosy(c2y);
       }
 
    }
