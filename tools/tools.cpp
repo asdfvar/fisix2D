@@ -4,6 +4,7 @@
 #include <iostream>
 
 #define ABS(A) ((A) > 0.0) ? (A) : -(A)
+#define EPS 0.00000001
 
 /* function to return the distance from a point and a
    finite length line
@@ -182,7 +183,7 @@ void collideWithCircle (CIRCLE *circle1, CIRCLE *circle2) {
          float v2nx = T11*c2vx + T12*c2vy;
          float v2ny = T21*c2vx + T22*c2vy;
 
-         // get the orthogonal velocity vectors
+         // get the orthogonal to normal velocity vectors
          float v1px = c1vx - v1nx;
          float v1py = c1vy - v1ny;
          float v2px = c2vx - v2nx;
@@ -198,6 +199,15 @@ void collideWithCircle (CIRCLE *circle1, CIRCLE *circle2) {
                v2xnew /= mass1 + mass2;
          float v2ynew = mass2*v2ny - mass1*(v2ny - 2.0*v1ny);
                v2ynew /= mass1 + mass2;
+
+         if (v1xnew*v1xnew + v1ynew*v1ynew < EPS) {
+            v1xnew = 0.0;
+            v1ynew = 0.0;
+         }
+         if (v2xnew*v2xnew + v2ynew*v2ynew < EPS) {
+            v2xnew = 0.0;
+            v2ynew = 0.0;
+         }
 
          v1xnew += v1px;
          v1ynew += v1py;
