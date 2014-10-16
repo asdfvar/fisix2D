@@ -40,12 +40,13 @@ FISIX::~FISIX() {}
  *********************************/
 
 float gettime(void);
+float waitUntil(float dt);
 
 void FISIX::idle(void) {
 
    /* insert computations here */
 
-   float dt = gettime();
+   float dt = waitUntil(0.005);
 
    CIRCLE *circle, *otherCircle;
    LINE   *line;
