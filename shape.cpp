@@ -76,7 +76,6 @@ void CIRCLE::reset_force(void) {
 
 void CIRCLE::apply_force(float Fx, float Fy) {
 
-std::cout << Fy << std::endl;
    force_x += Fx;
    force_y += Fy;
 
@@ -87,7 +86,6 @@ void CIRCLE::update(float dt) {
    // apply the force to get the acceleration
    x[2] = force_x / mass;
    y[2] = force_y / mass;
-std::cout << y[2]<< std::endl;
 
    // update the velocity
    x[1] += x[2]*dt;

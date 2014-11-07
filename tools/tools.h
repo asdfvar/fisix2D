@@ -16,8 +16,12 @@
            CIRCLE*,
            LINE*);
 
-void collideWithCircle(
+ void collideWithCircle(
            CIRCLE *circle1,
            CIRCLE *circle2);
+
+ float gravity(CIRCLE *circle1,
+               CIRCLE *circle2,
+               float G);
 
 #endif

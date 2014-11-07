@@ -3,6 +3,7 @@
 #include <GL/gl.h>
 #include <stdio.h>
 #include <iostream>
+#include <cmath>
 #include "fisix.h"
 #include "drawings.h"
 #include "shape.h"
@@ -51,19 +52,6 @@ void FISIX::idle(void) {
    CIRCLE *circle, *otherCircle;
    LINE   *line;
 
-   // update the circles by dt
-   for (int i = 0; i < circle_objs.N_circle; i++) {
-      // extract the current circle from the list
-      circle = circle_objs.get_circle();
-      // advance the list to the next circle node
-      circle_objs.goto_next_circle();
-      float Fy = circle->getMass() * -0.5;
-      circle->apply_force(0.0, Fy);
-      // update the circle positions, velocity, etc...
-      circle->update(dt);
-      circle->reset_force();
-   }
-
    // determine interactions with lines
    for (int iCircle = 0; iCircle < circle_objs.N_circle; iCircle++) {
 
@@ -84,18 +72,53 @@ void FISIX::idle(void) {
 
       circle = circle_objs.get_circle();
 
+      float x0 = circle->getx0();
+      float y0 = circle->gety0();
+
+      float x1, y1;
+      float Force;
+
       for (int jCircle = 0; jCircle < circle_objs.N_circle - 1; jCircle++) {
 
          circle_objs.goto_next_circle();
          otherCircle = circle_objs.get_circle();
 
+         x1 = otherCircle->getx0();
+         y1 = otherCircle->gety0();
+
+         float nx = x1 - x0;
+         float ny = y1 - y0;
+         float norm = sqrtf( nx*nx + ny*ny );
+         nx /= norm;
+         ny /= norm;
+
          // collision with other circle
          collideWithCircle(circle, otherCircle);
 
          // gravitational pull of other circle
+         Force = gravity( circle, otherCircle, 0.00001 );
+         circle->apply_force( Force * nx, Force * ny);
 
       }
 
+   }
+
+   // update the circles by dt
+   for (int i = 0; i < circle_objs.N_circle; i++) {
+      // extract the current circle from the list
+      circle = circle_objs.get_circle();
+      // advance the list to the next circle node
+      circle_objs.goto_next_circle();
+
+      // apply gravitational forces
+      float Fy = circle->getMass() * -0.5;
+      circle->apply_force(0.0, Fy);
+
+      // update the circle positions, velocity, etc...
+      circle->update(dt);
+
+      // reset forces
+      circle->reset_force();
    }
 
    glutPostRedisplay();
