@@ -247,3 +247,16 @@ void collideWithCircle (CIRCLE *circle1, CIRCLE *circle2) {
 
    }
 }
+
+float gravity(CIRCLE *circle1, CIRCLE *circle2, float G) {
+
+   float x1 = circle1->getx0();
+   float y1 = circle1->gety0();
+   float x2 = circle2->getx0();
+   float y2 = circle2->gety0();
+
+   float dist2 = (x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2);
+
+   return circle1->getMass() * circle2->getMass() * G / dist2;
+
+}

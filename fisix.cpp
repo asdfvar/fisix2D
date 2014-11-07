@@ -57,10 +57,11 @@ void FISIX::idle(void) {
       circle = circle_objs.get_circle();
       // advance the list to the next circle node
       circle_objs.goto_next_circle();
-      // update the acceleration
-      circle->update_acceleration(0.0, -0.5);
+      float Fy = circle->getMass() * -0.5;
+      circle->apply_force(0.0, Fy);
       // update the circle positions, velocity, etc...
       circle->update(dt);
+      circle->reset_force();
    }
 
    // determine interactions with lines
@@ -88,7 +89,10 @@ void FISIX::idle(void) {
          circle_objs.goto_next_circle();
          otherCircle = circle_objs.get_circle();
 
+         // collision with other circle
          collideWithCircle(circle, otherCircle);
+
+         // gravitational pull of other circle
 
       }
 

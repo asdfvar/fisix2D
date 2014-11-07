@@ -1,6 +1,7 @@
 #include "shape.h"
 #include "drawings.h"
 #include <stdio.h>
+#include <iostream>
 
 class SHAPE;
 
@@ -16,6 +17,8 @@ CIRCLE::CIRCLE() {
    w[0] = w[1] = w[2] = 0.0;
    diameter = 0.1;
    elasticity = 1.0;
+   force_x = 0.0;
+   force_y = 0.0;
 
 }
 
@@ -29,6 +32,8 @@ CIRCLE::CIRCLE(float x_in, float y_in) {
    w[0] = w[1] = w[2] = 0.0;
    diameter = 0.1;
    elasticity = 1.0;
+   force_x = 0.0;
+   force_y = 0.0;
 
 }
 
@@ -42,6 +47,8 @@ CIRCLE::CIRCLE(float x_in, float y_in, float diameter_in) {
    w[0] = w[1] = w[2] = 0.0;
    diameter = diameter_in;
    elasticity = 1.0;
+   force_x = 0.0;
+   force_y = 0.0;
 
 }
 
@@ -56,56 +63,39 @@ CIRCLE::CIRCLE(float x_in, float y_in, float diameter_in,
    w[0] = w[1] = w[2] = 0.0;
    diameter = diameter_in;
    elasticity = elasticity_in;
+   force_x = 0.0;
+   force_y = 0.0;
 
 }
 
-/********************************************************
- * Update the circle "ball" parameters based on a delta *
- * time and external forces                             *
- ********************************************************/
+void CIRCLE::reset_force(void) {
 
-void CIRCLE::update_force(float dt, /* delta time (seconds) */
-               float forcex,  /* force in x (N) */
-               float forcey){ /* force in y (N) */
-
-   // update the position
-   x[0] += x[1]*dt + 0.5*x[2]*dt*dt;
-   y[0] += y[1]*dt + 0.5*y[2]*dt*dt;
-
-   // update the velocity
-   x[1] += x[2]*dt;
-   y[1] += y[2]*dt;
-
-   // update the acceleration
-   x[2] = forcex / mass;
-   y[2] = forcey / mass;
-
+   force_x = 0.0;
+   force_y = 0.0;
 }
 
-/********************************************************
- * Update the circle "ball" parameters based on a delta *
- * time and the provided acceleration                   *
- ********************************************************/
+void CIRCLE::apply_force(float Fx, float Fy) {
 
-void CIRCLE::update_acceleration(
-               float ax,  /* acceleration in x (N) */
-               float ay){ /* acceleration in y (N) */
-
-   // update the acceleration
-   x[2] = ax;
-   y[2] = ay;
+std::cout << Fy << std::endl;
+   force_x += Fx;
+   force_y += Fy;
 
 }
 
 void CIRCLE::update(float dt) {
 
-   // update the position
-   x[0] += x[1]*dt + 0.5*x[2]*dt*dt;
-   y[0] += y[1]*dt + 0.5*y[2]*dt*dt;
+   // apply the force to get the acceleration
+   x[2] = force_x / mass;
+   y[2] = force_y / mass;
+std::cout << y[2]<< std::endl;
 
    // update the velocity
    x[1] += x[2]*dt;
    y[1] += y[2]*dt;
+
+   // update the position
+   x[0] += x[1]*dt + 0.5*x[2]*dt*dt;
+   y[0] += y[1]*dt + 0.5*y[2]*dt*dt;
 
 }
 

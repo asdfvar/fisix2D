@@ -12,6 +12,7 @@ class SHAPE {
   protected:
 
      float mass;
+     float force_x, force_y;
      float x[3],y[3]; // position, velocity, acceleration, more?
      float w[3];      // rotation, angular rate, angular acceleration, more?
 };
@@ -34,8 +35,8 @@ class CIRCLE: public SHAPE {
      * time and external forces                             *
      ********************************************************/
 
-     void update_force(float dt, float forcex, float forcey);
-     void update_acceleration(float ax, float ay);
+     void reset_force(void);
+     void apply_force(float Fx, float Fy);
      void update(float dt);
 
      float getx0(void);
