@@ -26,13 +26,15 @@ class FISIX {
       int windowsizex,
           windowsizey;
 
-      bool activeClick;
+      bool rightButtonDown;
 
+      // selected point on the screen
       int activeP1x,
           activeP1y,
           activeP2x,
           activeP2y;
 
+      // selected point on the screen normalized to [-1,1]x[-1,1]
       float activeX1,
             activeY1,
             activeX2,

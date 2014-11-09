@@ -23,11 +23,15 @@ FISIX::FISIX(int windowsizex_in,
    windowsizex = windowsizex_in;
    windowsizey = windowsizey_in;
 
-   activeClick = false;
+   rightButtonDown = false;
    activeP1x   = 0;
    activeP1y   = 0;
    activeP2x   = 0;
    activeP2y   = 0;
+   activeX1    = 0.0;
+   activeX2    = 0.0;
+   activeY1    = 0.0;
+   activeY2    = 0.0;
 
 }
 
@@ -121,6 +125,18 @@ void FISIX::idle(void) {
       circle->reset_force();
    }
 
+   // right button down
+   if (rightButtonDown) {
+      float dist2 = (activeX1 - activeX2)*(activeX1 - activeX2) +
+                    (activeY1 - activeY2)*(activeY1 - activeY2);
+
+      if (dist2 > 0.0001) {
+         line_objs.insert(new LINE(activeX1, activeY1, activeX2, activeY2));
+         activeX1 = activeX2;
+         activeY1 = activeY2;
+      }
+   }
+
    glutPostRedisplay();
 
 }
@@ -134,7 +150,7 @@ void FISIX::display(void) {
   glClear(GL_COLOR_BUFFER_BIT);
 
    // draw line as it is being made by the user
-   if (activeClick) {
+   if (rightButtonDown) {
 
       DRAWINGS draw;
 
@@ -210,31 +226,30 @@ void FISIX::mouse(
    xpos = (float)x/windowsizex * 2.0 - 1.0;
    ypos = 1.0 - 2.0 * (float)y/windowsizey;
 
-   if (button == GLUT_LEFT_BUTTON &&
-       state  == GLUT_DOWN)
+   // left click down
+   if (button == GLUT_LEFT_BUTTON && state  == GLUT_DOWN) {
          circle_objs.insert(new CIRCLE(xpos, ypos, 0.05, 0.9));
+   }
 
-   activeP2x = x;
-   activeP2y = y;
-   activeX2 = -((float)(windowsizex - 2*activeP2x))/windowsizex;
-   activeY2 = ((float)(windowsizey - 2*activeP2y))/windowsizey;
-   if (button == GLUT_RIGHT_BUTTON &&
-       state  == GLUT_DOWN) {
+   // right click down
+   if (button == GLUT_RIGHT_BUTTON && state  == GLUT_DOWN) {
+      rightButtonDown = true;
 
-         activeP1x = x;
-         activeP1y = y;
+      activeP1x = x;
+      activeP1y = y;
+      activeX1 = ((float)(2*activeP1x - windowsizex))/windowsizex;
+      activeY1 = ((float)(windowsizey - 2*activeP1y))/windowsizey;
+      activeP2x = x;
+      activeP2y = y;
+      activeX2 = ((float)(2*activeP2x - windowsizex))/windowsizex;
+      activeY2 = ((float)(windowsizey - 2*activeP2y))/windowsizey;
+   } 
 
-         activeX1 = -((float)(windowsizex - 2*activeP1x))/windowsizex;
-         activeY1 = ((float)(windowsizey - 2*activeP1y))/windowsizey;
+   // right click up
+   if (button == GLUT_RIGHT_BUTTON && state  == GLUT_UP) {
+      rightButtonDown = false;
 
-         activeClick = true;
-
-   } else if (button == GLUT_RIGHT_BUTTON &&
-       state  == GLUT_UP) {
-
-         activeClick = false;
-         line_objs.insert(new LINE(activeX1, activeY1, activeX2, activeY2));
-
+      line_objs.insert(new LINE(activeX1, activeY1, activeX2, activeY2));
    }
 }
 
